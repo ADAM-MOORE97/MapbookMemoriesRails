@@ -44,7 +44,9 @@ ActiveRecord::Schema.define(version: 2022_01_15_155923) do
   end
 
   create_table "locations", force: :cascade do |t|
-    t.string "name"
+    t.string "custom_name"
+    t.string "mapped_address"
+    t.string "place_type"
     t.decimal "latitude", precision: 10, scale: 6
     t.decimal "longitude", precision: 10, scale: 6
     t.boolean "visited"
