@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::API
     include ActionController::Cookies
+  
     before_action :current_user
     skip_before_action :current_user, only:[:destroy]
     rescue_from ActiveRecord::RecordInvalid, with: :render_record_invalid

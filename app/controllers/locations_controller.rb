@@ -24,7 +24,7 @@ class LocationsController < ApplicationController
     def show
         if @current_user
             location = Location.find_by!(id: params[:id])
-            render json: location, status: :ok
+            render json: location.to_json(include: [:trips]), status: :ok
         else
             render json: {errors: ["You are not logged in"]}, status: :unauthorized
         end
@@ -48,6 +48,6 @@ class LocationsController < ApplicationController
     end
     private
   def location_params
-      params.permit(:id, :custom_name, :mapped_address, :place_type, :latitude, :longitude, :visited, :description, )
+      params.permit(:id, :custom_name, :mapped_address, :place_type, :latitude, :longitude, :visited, :description )
   end
 end
