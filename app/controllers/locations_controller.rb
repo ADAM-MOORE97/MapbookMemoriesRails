@@ -10,7 +10,6 @@ class LocationsController < ApplicationController
     def create
 
         if @current_user
-            byebug
         location = @current_user.locations.create!(location_params)
             if location.valid?
                 render json: location, status: :created
@@ -31,7 +30,8 @@ class LocationsController < ApplicationController
     end
     def update
         if @current_user
-            location = @current_user.location.find_by(id: params[:id])
+        
+            location = @current_user.locations.find_by(id: params[:id])
             location.update!(location_params)
             # byebug
             render json: location, status: :ok

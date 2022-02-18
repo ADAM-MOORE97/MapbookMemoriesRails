@@ -1,4 +1,4 @@
 class TripSerializer < ActiveModel::Serializer
   include JSONAPI::Serializer
-  attributes :id, :name, :start_date, :end_date, :taken, :description, :attachment_urls
+  attributes :id, :name, :start_date, :end_date, :taken, :description, :attachment_urls, :location_id
 end
