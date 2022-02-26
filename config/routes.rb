@@ -16,6 +16,6 @@ Rails.application.routes.draw do
   get '/locations/:id', to: 'locations#show'
 
   # root
-  get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }
+get '/', to: 'welcome#index'
 
 end
