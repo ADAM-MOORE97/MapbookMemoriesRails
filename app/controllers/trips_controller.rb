@@ -40,7 +40,6 @@ class TripsController < ApplicationController
             trip = Trip.find_by(id: params[:id])
             if trip.taken == true
             Location.find(params[:location_id]).update(visited: true)
-            byebug
             trip.update!(trip_params)
             trip.to_json(include: [:attachments])
             render json: TripSerializer.new(trip).serializable_hash[:data][:attributes], status: 200

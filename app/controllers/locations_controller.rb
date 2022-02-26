@@ -33,7 +33,6 @@ class LocationsController < ApplicationController
         
             location = @current_user.locations.find_by(id: params[:id])
             location.update!(location_params)
-            # byebug
             render json: location, status: :ok
         else
             render json: {errors: ["You are not logged in"]}, status: :unauthorized
