@@ -6,11 +6,6 @@ class ApplicationController < ActionController::API
     rescue_from ActiveRecord::RecordInvalid, with: :render_record_invalid
     rescue_from ActiveRecord::RecordNotFound, with: :render_record_not_found
 
-    def user_id
-      if decoded_token
-        decoded_token[0]["user_id"]
-      end
-    end
 
     def current_user
      @current_user = User.find_by(id: session[:user_id])
