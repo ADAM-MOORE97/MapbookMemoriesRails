@@ -51,3 +51,4 @@ gem 'pry'
 gem 'activerecord-reset-pk-sequence'
 gem "jsonapi-serializer", "~> 2.2"
 gem "aws-sdk-s3", require: false
+gem 'rails_same_site_cookie'
