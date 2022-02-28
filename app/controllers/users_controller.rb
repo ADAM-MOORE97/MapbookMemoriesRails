@@ -11,7 +11,7 @@ class UsersController < ApplicationController
                 render json: @current_user, status: :ok
             end
         else 
-            render json: { errors: ["Not authenticated"], e: [@current_user.error.full_messages] }, status: :unauthorized
+            render json: { errors: ["Not authenticated"]}, status: :unauthorized
         end 
     end
 
