@@ -1,12 +1,5 @@
 class UsersController < ApplicationController
 
-    # def show
-    #     if @current_user
-    #         render json: current_user, status: :ok
-    #     else
-    #         render json: ["No current session stored"], status: :unauthorized
-    #     end
-    # end
     def show
        
         if @current_user
@@ -18,7 +11,7 @@ class UsersController < ApplicationController
                 render json: @current_user, status: :ok
             end
         else 
-            render json: { errors: ["Not authenticated"] }, status: :unauthorized
+            render json: { errors: ["Not authenticated"], e: [@current_user.error.full_messages] }, status: :unauthorized
         end 
     end
 
