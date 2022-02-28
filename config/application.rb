@@ -26,6 +26,6 @@ config.middleware.use ActionDispatch::Session::CookieStore
     # Skip views, helpers and assets when generating a new resource.
     config.action_dispatch.cookies_same_site_protection = :None
     config.load_defaults 7.0
-    config.api_only = true
+    config.api_only = false
   end
 end
