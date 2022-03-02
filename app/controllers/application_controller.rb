@@ -1,7 +1,9 @@
 class ApplicationController < ActionController::API
     include ActionController::Cookies
-  
-    before_action :current_user
+    include ActionController::RequestForgeryProtection
+        protect_from_forgery with: :exception  
+    skip_before_action :verify_authenticity_token
+ 
     skip_before_action :current_user, only:[:destroy]
     rescue_from ActiveRecord::RecordInvalid, with: :render_record_invalid
     rescue_from ActiveRecord::RecordNotFound, with: :render_record_not_found
