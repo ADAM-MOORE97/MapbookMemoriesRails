@@ -19,7 +19,7 @@ module MapbookMemoriesRails
     # config.eager_load_paths << Rails.root.join("extras")
 # This also configures session_options for use below
 config.middleware.use ActionDispatch::Cookies
-config.middleware.use ActionDispatch::Session::CookieStore
+config.middleware.use ActionDispatch::Session::CookieStore, :domain => :all, :tld_length => 2
 
     # Only loads a smaller set of middleware suitable for API only apps.
     # Middleware like session, flash, cookies can be added back manually.
