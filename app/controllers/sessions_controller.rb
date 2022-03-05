@@ -2,9 +2,14 @@ class SessionsController < ApplicationController
 
 
     def create
+   puts params
         user = User.find_by(username: params[:username])
         if user&.authenticate(params[:password])
-          response.headers["jwt"]= issue_token(user)
+
+          token= issue_token(user)
+
+          cookies.signed[:token] = {value: token, httponly: true, expires: 1.minute.from_now}
+     
           render json: user, status: :ok
         else
           render json: { errors: ["Invalid login credentials."] }, status: :unauthorized
@@ -12,8 +17,12 @@ class SessionsController < ApplicationController
       end
     
       def destroy
-        session.delete(:user_id)
+        cookies.delete(:token)
         head :no_content
+      end
+      private
+      def session_params
+          params.permit(:username, :password)
       end
       
 end

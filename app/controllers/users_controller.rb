@@ -1,15 +1,9 @@
 class UsersController < ApplicationController
 
     def show
-       
-        if @current_user
-            if params[:id] 
-                render json: User.find(params[:id])
-            elsif params[:username]
-                render json: User.find_by!(username: params[:username])
-            else
-                render json: @current_user, status: :ok
-            end
+
+        if current_user
+                render json: current_user, status: :ok
         else 
             render json: { errors: ["Not authenticated"]}, status: :unauthorized
         end 
@@ -30,3 +24,17 @@ class UsersController < ApplicationController
         params.permit(:username, :email, :password, :password_confirmation)
     end
 end
+# def current_user
+#     cookie = cookies.signed[:token]
+#    JWT.decode(cookie, jwt_key)
+#    byebug
+# end
+def current_user
+    cookie = cookies.signed[:token]
+     begin
+        user_id=JWT.decode(cookie, jwt_key)
+    rescue => exception
+        [{error: "Invalid Token"}]
+    end   
+    return User.find_by(id: user_id)
+  end

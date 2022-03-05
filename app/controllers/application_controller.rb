@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::API
+  include ::ActionController::Cookies
     rescue_from ActiveRecord::RecordInvalid, with: :render_record_invalid
     rescue_from ActiveRecord::RecordNotFound, with: :render_record_not_found
 
@@ -7,31 +8,17 @@ class ApplicationController < ActionController::API
     end
 
     def issue_token(user)
-      JWT.encode({user_id: user.id}.merge(exp: 30.minutes.from_now.to_i), jwt_key, "HS256")
-  end
-
-  def decoded_token
-      begin
-          JWT.decode(token, jwt_key, true, { :algorithm => 'HS256' })
-      rescue => exception
-          [{error: "Invalid Token"}]
-      end    
-  end
-  
-  def token
-      request.headers["Authorization"]
-  end
-
-  def user_id
-      decoded_token.first["user_id"]
+      JWT.encode({user_id: user.id}, jwt_key, "HS256")
   end
 
   def current_user
-      user ||= User.find_by(id: user_id)
-  end
-
-  def logged_in?
-      !!current_user
+    cookie = cookies.signed[:token]
+     begin
+        user_id=JWT.decode(cookie, jwt_key)
+    rescue => exception
+        [{error: "Invalid Token"}]
+    end   
+    return User.find_by(id: user_id)
   end
 
 
