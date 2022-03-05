@@ -113,6 +113,7 @@ GEM
     jsonapi-renderer (0.2.2)
     jsonapi-serializer (2.2.0)
       activesupport (>= 4.2)
+    jwt (2.3.0)
     loofah (2.13.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -173,9 +174,6 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.4.2)
       loofah (~> 2.3)
-    rails_same_site_cookie (0.1.9)
-      rack (>= 1.5)
-      user_agent_parser (~> 2.6)
     railties (7.0.1)
       actionpack (= 7.0.1)
       activesupport (= 7.0.1)
@@ -192,7 +190,6 @@ GEM
     timeout (0.2.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
-    user_agent_parser (2.9.0)
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -210,12 +207,12 @@ DEPENDENCIES
   byebug
   image_processing (~> 1.2)
   jsonapi-serializer (~> 2.2)
+  jwt (~> 2.2)
   pg (~> 1.1)
   pry
   puma (~> 5.0)
   rack-cors
   rails (~> 7.0.1)
-  rails_same_site_cookie
   spring
   tzinfo-data
 

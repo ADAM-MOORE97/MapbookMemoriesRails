@@ -18,8 +18,8 @@ class UsersController < ApplicationController
     def create
         user = User.create!(user_params)
         if user.valid?
-        session[:user_id] = user.id 
-        render json: user, status: :created
+        token = issue_token(user)
+        render json: {user: user, jwt: token}, status: :created
         else
         render json: user.errors.full_messages, status: :unprocessable_entity
        end
