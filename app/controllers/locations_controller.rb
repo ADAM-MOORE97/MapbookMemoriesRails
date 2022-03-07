@@ -1,16 +1,19 @@
 class LocationsController < ApplicationController
     def index
-        if @current_user
-        locations = @current_user.locations.all
+        if current_user
+  
+        locations = current_user.locations.all
         render json: locations, status: :ok
+       
         else 
-            render json:[error: 'Not Found, No Current User'], status: 404
+            render json: {error: ['You are not Logged in']}, status: 404
         end
     end
     def create
 
-        if @current_user
-        location = @current_user.locations.create!(location_params)
+        if current_user
+
+        location = Location.create!(location_params)
             if location.valid?
                 render json: location, status: :created
             else
