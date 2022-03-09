@@ -13,7 +13,7 @@ class LocationsController < ApplicationController
 
         if current_user
 puts location_params
-        location = Location.create!(location_params)
+        location = current_user.locations.create!(location_params)
             if location.valid?
                 render json: location, status: :created
             else
@@ -35,7 +35,7 @@ puts location_params
     def update
         if current_user
         
-            location = @current_user.locations.find_by(id: params[:id])
+            location = current_user.locations.find_by(id: params[:id])
             location.update!(location_params)
             render json: location, status: :ok
         else
@@ -44,7 +44,7 @@ puts location_params
     end
     def destroy
       if current_user
-        location = @current_user.locations.find(params[:id])
+        location = current_user.locations.find(params[:id])
         location.destroy
         render json: {message: "deleted"}
       else
