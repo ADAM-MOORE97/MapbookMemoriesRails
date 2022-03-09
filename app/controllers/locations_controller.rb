@@ -12,7 +12,7 @@ class LocationsController < ApplicationController
     def create
 
         if current_user
-
+puts location_params
         location = Location.create!(location_params)
             if location.valid?
                 render json: location, status: :created

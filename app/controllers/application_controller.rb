@@ -12,6 +12,7 @@ class ApplicationController < ActionController::API
   end
 
   def current_user
+
     cookie = cookies.signed[:token]
      begin
         user_id=JWT.decode(cookie, jwt_key)[0].values[0]
