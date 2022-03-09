@@ -1,14 +1,14 @@
 class TripsController < ApplicationController
     def index
-        if @current_user
-            render json: @current_user.trips.all.map{|trip| TripSerializer.new(trip).serializable_hash[:data][:attributes]}, status: 200
+        if current_user
+            render json: current_user.trips.all.map{|trip| TripSerializer.new(trip).serializable_hash[:data][:attributes]}, status: 200
         else 
-            render json:[error: 'Not Found, No Current User'], status: 404
+            render json:{errors: ["You are not logged in"]}, status: :unauthorized
         end
     end
     def show
-        if @current_user
-        
+        if current_user
+
             trip = Trip.find_by!(id: params[:id])
        
             render json: TripSerializer.new(trip).serializable_hash[:data][:attributes], status: 200
@@ -39,7 +39,7 @@ else render json: {errors: ["You are not Logged in"]}, status: :unauthorized
 end
     end
     def update
-        if @current_user
+        if current_user
             trip = Trip.find_by(id: params[:id])
             if trip.taken == true
             Location.find(params[:location_id]).update(visited: true)
@@ -57,8 +57,8 @@ end
         end
     end
     def destroy
-        trip = @current_user.trips.find_by(id: params[:id])
-        if @current_user.id == trip.user_id
+        trip = current_user.trips.find_by(id: params[:id])
+        if current_user.id == trip.user_id
              trip.attachments.purge
              trip.destroy
             render json: {message: "deleted"}

@@ -6,7 +6,7 @@ class LocationsController < ApplicationController
         render json: locations, status: :ok
        
         else 
-            render json: {error: ['You are not Logged in']}, status: 404
+            render json: {errors: ['You are not Logged in']}, status: :unauthorized
         end
     end
     def create
@@ -24,15 +24,16 @@ class LocationsController < ApplicationController
         end
     end
     def show
-        if @current_user
+        if current_user
             location = Location.find_by!(id: params[:id])
+
             render json: location.to_json(include: [:trips]), status: :ok
         else
             render json: {errors: ["You are not logged in"]}, status: :unauthorized
         end
     end
     def update
-        if @current_user
+        if current_user
         
             location = @current_user.locations.find_by(id: params[:id])
             location.update!(location_params)
@@ -42,10 +43,12 @@ class LocationsController < ApplicationController
         end
     end
     def destroy
-      if @current_user
+      if current_user
         location = @current_user.locations.find(params[:id])
         location.destroy
-        head :no_content
+        render json: {message: "deleted"}
+      else
+        render json:{errors: ["You are not logged in"]}, status: :unauthorized
       end
     end
     private

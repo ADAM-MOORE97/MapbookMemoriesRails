@@ -12,8 +12,11 @@ class UsersController < ApplicationController
     def create
         user = User.create!(user_params)
         if user.valid?
-        token = issue_token(user)
-        render json: {user: user, jwt: token}, status: :created
+            token= issue_token(user)
+
+            cookies.signed[:token] = {value: token, httponly: true, expires: 24.hours.from_now}
+       
+            render json: user, status: :ok
         else
         render json: user.errors.full_messages, status: :unprocessable_entity
        end
@@ -24,17 +27,3 @@ class UsersController < ApplicationController
         params.permit(:username, :email, :password, :password_confirmation)
     end
 end
-# def current_user
-#     cookie = cookies.signed[:token]
-#    JWT.decode(cookie, jwt_key)
-#    byebug
-# end
-def current_user
-    cookie = cookies.signed[:token]
-     begin
-        user_id=JWT.decode(cookie, jwt_key)[0]
-    rescue => exception
-        [{error: "Invalid Token"}]
-    end   
-    return User.find_by(id: user_id)
-  end

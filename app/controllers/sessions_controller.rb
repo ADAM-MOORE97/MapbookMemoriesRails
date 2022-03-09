@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
 
           token= issue_token(user)
 
-          cookies.signed[:token] = {value: token, httponly: true, expires: 30.seconds.from_now}
+          cookies.signed[:token] = {value: token, httponly: true, expires: 24.hours.from_now}
      
           render json: user, status: :ok
         else
@@ -20,9 +20,6 @@ class SessionsController < ApplicationController
         cookies.delete(:token)
         head :no_content
       end
-      private
-      def session_params
-          params.permit(:username, :password)
-      end
+    
       
 end

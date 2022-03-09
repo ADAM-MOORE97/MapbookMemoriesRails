@@ -11,9 +11,7 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
   # Current_user
   get '/authenticate', to: 'users#show'
-  # Location routes
-  post '/locations/new', to: 'locations#create'
-  get '/locations/:id', to: 'locations#show'
+  
 
   # root
 get '/', to: 'welcome#index'
