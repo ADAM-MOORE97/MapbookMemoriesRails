@@ -52,3 +52,4 @@ gem 'activerecord-reset-pk-sequence'
 gem "jsonapi-serializer", "~> 2.2"
 gem "aws-sdk-s3", require: false
 gem "jwt", "~> 2.2"
+gem "rails_same_site_cookie", "~> 0.1.8"
