@@ -18,7 +18,13 @@ class TripsController < ApplicationController
     end
     def create
         if current_user
+
+
         trip = Trip.new(trip_params)
+        params[:attachments].each do |image|
+            mini_image = MiniMagick::Image.new(image.tempfile.path)
+            mini_image.resize '200x200'
+          end
         if trip.taken == true
             Location.find(params[:location_id]).update(visited: true)
             
