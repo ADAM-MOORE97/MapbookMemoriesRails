@@ -2,7 +2,7 @@ class Trip < ApplicationRecord
  
     belongs_to :user 
     belongs_to :location
-    has_many_attached :attachments.variant(resize_to_limit: [200,200])
+    has_many_attached :attachments
     validates :name, uniqueness: true
     validates :name, presence: true
     validates :start_date, presence: true
