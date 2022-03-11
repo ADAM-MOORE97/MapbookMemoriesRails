@@ -12,7 +12,10 @@ class Trip < ApplicationRecord
 
     def attachment_urls
         attachments.map do |attached|
-            Rails.application.routes.url_helpers.rails_blob_path(attached.variant(resize_to_limit: [200,200]), only_path: true)
+            attached.blob.attributes
+    .slice('filename', 'byte_size', 'id')
+    .merge(url: Rails.application.routes.url_helpers.rails_blob_path(attached.variant(resize_to_limit: [200,200]), only_path: true))
+            
         end
     end
  
