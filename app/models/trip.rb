@@ -12,8 +12,8 @@ class Trip < ApplicationRecord
 
     def attachment_urls
         attachments.map do |attached|
-  Rails.application.routes.url_helpers.rails_blob_path(attached, only_path: true)
- 
+#   Rails.application.routes.url_helpers.rails_blob_path(attached, only_path: true)
+ attached.url
             
         end
     end

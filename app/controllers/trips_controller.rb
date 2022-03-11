@@ -21,6 +21,7 @@ class TripsController < ApplicationController
         trip = Trip.new(trip_params)
         if trip.taken == true
             Location.find(params[:location_id]).update(visited: true)
+            
             trip.to_json(include: [:attachments])
                 if trip.save
                     render json: TripSerializer.new(trip).serializable_hash[:data][:attributes], status: 200
