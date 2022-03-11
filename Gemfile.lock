@@ -223,7 +223,6 @@ DEPENDENCIES
   rack-cors
   rails (~> 7.0.1)
   rails_same_site_cookie (~> 0.1.8)
-  ruby-vips
   spring
   tzinfo-data
 

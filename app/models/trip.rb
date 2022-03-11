@@ -2,7 +2,7 @@ class Trip < ApplicationRecord
  
     belongs_to :user 
     belongs_to :location
-    has_many_attached :attachments 
+    has_many_attached :attachments.variant(resize_to_limit: [200,200])
     validates :name, uniqueness: true
     validates :name, presence: true
     validates :start_date, presence: true
@@ -12,8 +12,8 @@ class Trip < ApplicationRecord
 
     def attachment_urls
         attachments.map do |attached|
-#   Rails.application.routes.url_helpers.rails_blob_path(attached, only_path: true)
-  Rails.application.routes.url_helpers.rails_representation_url(attached.variant(resize_to_limit: [200,200]).processed)
+  Rails.application.routes.url_helpers.rails_blob_path(attached, only_path: true)
+ 
             
         end
     end
