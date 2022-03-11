@@ -13,7 +13,7 @@ class Trip < ApplicationRecord
     def attachment_urls
         attachments.map do |attached|
 #   Rails.application.routes.url_helpers.rails_blob_path(attached, only_path: true)
-  Rails.application.routes.url_helpers.rails_representation_url(attached.variant(resize_to_limit: [200,200]))
+  Rails.application.routes.url_helpers.rails_representation_url(attached.variant(resize_to_limit: [200,200]).processed)
             
         end
     end
