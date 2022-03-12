@@ -27,7 +27,7 @@ class TripsController < ApplicationController
             
             trip.to_json(include: [:attachments])
             trip.attachments.each do |image|
-                image.tempfile = ImageProcessing::MiniMagick.source(image.tempfile).resize_to_limit(200, 200).call
+                image.resize(200,200)
             end
                 if trip.save
                     render json: TripSerializer.new(trip).serializable_hash[:data][:attributes], status: 200
