@@ -27,7 +27,7 @@ class TripsController < ApplicationController
             
             trip.to_json(include: [:attachments])
             trip.attachments.each do |image|
-                image.resize(200,200)
+                image.variant(resize_to_limit: [200,200])
             end
                 if trip.save
                     render json: TripSerializer.new(trip).serializable_hash[:data][:attributes], status: 200
