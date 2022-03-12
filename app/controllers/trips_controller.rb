@@ -21,13 +21,14 @@ class TripsController < ApplicationController
 
 
         trip = Trip.new(trip_params)
-        params[:attachments].each do |image|
-            image.variant(resize_to_limit: [200,200])
-          end
+        
         if trip.taken == true
             Location.find(params[:location_id]).update(visited: true)
             
             trip.to_json(include: [:attachments])
+            trip.attachments.each do |image|
+                image.tempfile = ImageProcessing::MiniMagick.source(image.tempfile).resize_to_limit(200, 200).call
+            end
                 if trip.save
                     render json: TripSerializer.new(trip).serializable_hash[:data][:attributes], status: 200
                  else
